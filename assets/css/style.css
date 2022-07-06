@@ -1,0 +1,14 @@
+@import url('./reset.css'); 
+@import url('./header.css');
+@import url('./main.css');
+@import url('./footer.css');
+
+
+
+
+body {
+    color: #333;
+    background-color: #FFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+} 
