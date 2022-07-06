@@ -1,7 +1,18 @@
 main {
     min-height: 550px;
-    background-color: #af8375;
+    background-color: #884e3c;
     width: 80%;
     margin: 0 auto;
-} 
+}
 
+main form {
+
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+main form input {
+    width: 100%;
+    padding: 0.7rem;
+}

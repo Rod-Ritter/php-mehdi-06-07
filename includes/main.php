@@ -1,5 +1,5 @@
 <main>
-<form action="" method="get">
+    <form action="" method="get">
 <div>
     <label for="nom">nom: </label>
     <input type="text" name="nom" id="nom" required>
