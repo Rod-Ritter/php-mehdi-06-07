@@ -6,36 +6,28 @@ $title = "Ajouter une bière";
 // Traitement PHP
 // Formulaire est soumis ???
 $success = false;
-$errors = array();
-if(!empty($_POST['submitted'])) {
+$errors = [];
+if(($_SERVER['REQUEST_METHOD'] == "POST") && !empty($_POST['SUBMITTED'])) {
     // Faille XSS
 
 
-    $title = cleanXss('title');
-    $content = trim(strip_tags($_POST['content']));
-    $mail = trim(strip_tags($_POST['mail']));
+    $nom = cleanXss('nom');
+    $prenom = cleanXss('prenom');
+    $email = cleanXss('email');
+   
     // Validation
-    $errors = validText($errors,$title,'title',3,100);
-    $errors = validText($errors,$content,'content',10,1000);
-    $errors = validEmail($errors, $mail, 'mail');
-    // validation de mail
-//    if(!empty($mail)) {
-//        // if email is valid
-//        if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-//            $errors['mail'] = 'Veuillez renseigner un email valide';
-//        }
-//    } else {
-//        $errors['mail'] = 'Veuillez renseigner un email';
-//    }
+    $errors = validText($errors,$nom,'nom',2,25);
+    $errors = validText($errors,$prenom,'prenom',10,1000);
+    $errors = validEmail($errors, $mail, 'email');
 
     if(count($errors) === 0) {
         // insertion en BDD si aucune error
-        $sql = "INSERT INTO beer (title,content,email,created_at) VALUES (:title,:content,:mail,NOW())";
-        $query = $pdo->prepare($sql);
+        $requete_insert = "INSERT INTO users (nom,prenom,email,created_at) VALUES (:nom,:prenom,:mail,NOW())";
+        $query = $pdo->prepare($requete_insert);
         // ATTENTION INJECTION SQL
-        $query->bindValue(':title',$title, PDO::PARAM_STR);
-        $query->bindValue(':content',$content, PDO::PARAM_STR);
-        $query->bindValue(':mail',$mail, PDO::PARAM_STR);
+        $query->bindValue(':nom',$nom, PDO::PARAM_STR);
+        $query->bindValue(':prenom',$prenom, PDO::PARAM_STR);
+        $query->bindValue(':email',$email, PDO::PARAM_STR);
         $query->execute();
         $last_id = $pdo->lastInsertId();
         header('Location: detail-beer.php?id=' . $last_id);
@@ -71,7 +63,7 @@ if(!empty($_POST['submitted'])) {
 //debug($_POST);
 //debug($errors);
 
-include('inc/header.php'); ?>
+/*include('inc/header.php'); ?>
     <h1>Ajouter une bière</h1>
     <form action="" method="post" novalidate class="wrap2">
         <label for="title">Titre</label>
@@ -88,4 +80,4 @@ include('inc/header.php'); ?>
 
         <input type="submit" name="submitted" value="Ajouter une bière">
     </form>
-<?php include('inc/footer.php');
+<?php include('inc/footer.php');*/
